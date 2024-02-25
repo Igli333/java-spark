@@ -23,7 +23,20 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+  elasticsearch:
+    image: elasticsearch:8.12.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+      - ./snapshots:/usr/share/elasticsearch/snapshots
 
 volumes:
   postgresql:
   mysql_data:
+  esdata:

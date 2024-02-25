@@ -1,4 +1,4 @@
-package com.spark.ch8;
+package com.spark.ch8.rdbms;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -28,6 +28,18 @@ public class MySQLToDatasetApp {
                 "actor",
                 props
         );
+
+//        Using option
+//        Dataset<Row> df = spark.read()
+//                .option("url", "jdbc:mysql://localhost:3306/sakila")
+//                .option("dbtable", "actor")
+//                .option("user", "root")
+//                .option("password", "Spark<3Java")
+//                .option("useSSL", "false")
+//                .option("serverTimezone", "EST")
+//                .format("jdbc")
+//                .load();
+
         df = df.orderBy(df.col("last_name"));
 
         df.show(5);
