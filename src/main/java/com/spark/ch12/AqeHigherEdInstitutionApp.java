@@ -6,19 +6,22 @@ import org.apache.spark.sql.SparkSession;
 
 import static org.apache.spark.sql.functions.*;
 
-public class HigherEdInstitutionPerCountyApp {
+public class AqeHigherEdInstitutionApp {
     public static void main(String[] args) {
-        HigherEdInstitutionPerCountyApp app = new HigherEdInstitutionPerCountyApp();
+        AqeHigherEdInstitutionApp app = new AqeHigherEdInstitutionApp();
         app.start();
     }
 
     private void start() {
         SparkSession spark = SparkSession.builder()
-                .appName("Join")
+                .appName("Join Using AQE")
                 .master("local")
+                .config("spark.sql.adaptive.enabled", true)
                 .getOrCreate();
 
-        Dataset<Row> censusDf = spark.read().format("csv")
+        Dataset<Row> censusDf = spark
+                .read()
+                .format("csv")
                 .option("header", "true")
                 .option("inferSchema", "true")
                 .option("encoding", "cp1252")
@@ -39,8 +42,6 @@ public class HigherEdInstitutionPerCountyApp {
                 .withColumnRenamed("respop72017", "pop2017")
                 .withColumnRenamed("GEO.id2", "countyId")
                 .withColumnRenamed("GEO.display-label", "county");
-
-        censusDf.sample(0.1).show(3, false);
 
         Dataset<Row> higherEdDf = spark.read()
                 .format("csv")
@@ -66,42 +67,57 @@ public class HigherEdInstitutionPerCountyApp {
                 .withColumn("zip", higherEdDf.col("splitZipCode").getItem(0))
                 .withColumnRenamed("LocationName", "location")
                 .drop("DapipId")
+                .drop("OpeId")
+                .drop("ParentName")
+                .drop("ParentDapipId")
+                .drop("LocationType")
+                .drop("Address")
+                .drop("GeneralPhone")
+                .drop("AdminName")
+                .drop("AdminPhone")
+                .drop("AdminEmail")
+                .drop("Fax")
+                .drop("UpdateDate")
                 .drop("zip9")
                 .drop("addressElements")
                 .drop("addressElementCount")
                 .drop("splitZipCode");
 
-        higherEdDf.show(5);
-
-        Dataset<Row> countyZipDf = spark.read().format("csv")
+        Dataset<Row> countyZipDf = spark
+                .read()
+                .format("csv")
                 .option("header", "true")
                 .option("inferSchema", "true")
                 .load("data/COUNTY_ZIP_092018.csv");
-
         countyZipDf = countyZipDf
-                .drop("red_ratio")
+                .drop("res_ratio")
                 .drop("bus_ratio")
                 .drop("oth_ratio")
                 .drop("tot_ratio");
 
-        countyZipDf.show(5);
+        Dataset<Row> institutePerCountyDf = higherEdDf.join(
+                countyZipDf,
+                higherEdDf.col("zip").equalTo(countyZipDf.col("zip")),
+                "inner"
+        );
 
-        Dataset<Row> institPerCountyDf = higherEdDf.join(countyZipDf,
-                higherEdDf.col("zip").equalTo(countyZipDf.col("zip")), "inner");
-
-        institPerCountyDf.show(5);
-
-        institPerCountyDf = institPerCountyDf.join(
+        institutePerCountyDf = institutePerCountyDf.join(
                 censusDf,
-                institPerCountyDf.col("county").equalTo(censusDf.col("countyId")),
-                "left");
+                institutePerCountyDf.col("county").equalTo(censusDf.col("countyId")),
+                "left"
+        );
 
-        institPerCountyDf = institPerCountyDf
+        institutePerCountyDf = institutePerCountyDf
                 .drop(higherEdDf.col("zip"))
                 .drop(countyZipDf.col("county"))
                 .drop("countyId")
                 .distinct();
 
-        institPerCountyDf.show(5);
+        institutePerCountyDf = institutePerCountyDf.cache();
+        institutePerCountyDf.collect();
+
+        institutePerCountyDf.show(10);
+
+        spark.stop();
     }
 }

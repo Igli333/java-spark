@@ -69,6 +69,7 @@ public class RecordTransformationApp {
                 .drop("est2015")
                 .drop("est2016")
                 .drop("est2017");
+
         statDf.printSchema();
         statDf.sample(.01).show(5, false);
 
