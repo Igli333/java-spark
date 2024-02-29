@@ -3,7 +3,21 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="/data/InstitutionCampus.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/data/NCHS_-_Teen_Birth_Rates_for_Age_Group_15-19_in_the_United_States_by_County.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/data/PEP_2017_PEPANNRES.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -31,14 +45,14 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/data/books -updated.csv">
+        <entry key="/data/books.csv">
           <value>
             <Attribute>
-              <option name="separator" value=";" />
+              <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="/data/books.csv">
+        <entry key="/data/populationbycountry19802010millions.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

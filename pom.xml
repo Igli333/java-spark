@@ -90,11 +90,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
         </dependency>
-        <dependency>
-            <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch-hadoop</artifactId>
-            <version>8.9.2</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.elasticsearch</groupId>-->
+<!--            <artifactId>elasticsearch-hadoop</artifactId>-->
+<!--            <version>8.11.4</version>-->
+<!--        </dependency>-->
     </dependencies>
     <build>
         <plugins>
