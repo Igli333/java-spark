@@ -24,6 +24,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/data/PEP_2017_PEPANNRES_metadata.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/data/Restaurants_in_Durham_County_NC.csv">
           <value>
             <Attribute>
@@ -45,6 +52,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/data/books-updated.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/data/books.csv">
           <value>
             <Attribute>
@@ -52,7 +66,28 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/data/orders.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/data/populationbycountry19802010millions.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/data/sdlibraries.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/Downloads/2018-2019_Daily_Attendance.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
